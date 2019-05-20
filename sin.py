@@ -19,19 +19,36 @@ for i in range(0, len(D)):
     
 # create model
 model = Sequential()
-model.add(Dense(200, input_dim=1, activation='relu'))
+model.add(Dense(200, input_dim=1, activation='relu')) #rectified linear activation unit 
+#if input > 0 return input; else return 0
+
 model.add(Dense(16, activation='sigmoid'))
+# S-shape function that exists between 0 and 1. Used for models where we need to predict
+# the probability of an output (probabilities exist between 0 and 1)
+# f(x) =    _____L_______  L = vurve's maximum value     x0 = value of sigmoid's midpoint
+#          1+e^-(k(x-x0))  k = steepness of the curve
+# a standard logistic function is called sigmoid function (k=1, x0=0, L=1)
+# S(x) = __1___        
+#        1+e^-x     (S- shaped curve)
+# This curve has a finite limit of:
+# ‘0’ as x approaches −∞
+# ‘1’ as x approaches +∞
+# The output of sigmoid function when x=0 is 0.5
+# If output is more tan 0.5 , we can classify the outcome as 1 (or YES) and if it is less than 0.5 , we can classify it as 0(or NO) .
+
 model.add(Dense(1, activation='linear'))
+#output will not be confined between any range.
 
 # Compile model
 model.compile(loss='mean_squared_error', optimizer='SGD', metrics=['mean_squared_error'])
+# mean squared error: average of the squared differences between the predicted and actual values
 
 import matplotlib.pyplot as plt
 Xt = numpy.arange(0.0,12.0,0.4)
 
 # Fit the model and shows the result
 for i in range(1,50):
-    model.fit(X, Y, epochs=25, batch_size=50, verbose=0)
+    model.fit(X, Y, epochs=40, batch_size=20, verbose=0)
 
     Yt = numpy.sin(Xt)
     predictions = model.predict(Xt)
@@ -39,9 +56,8 @@ for i in range(1,50):
     for pred in predictions:
         sai.append(pred[0])
     plt.clf()
-    plt.plot(Xt, Yt, 'b', Xt, sai, 'r--')
+    plt.plot(Xt, Yt, 'b', Xt, sai, 'r')
     plt.ylabel('Y / Predicted Value '+str(i))
     plt.xlabel('X Value')
     plt.draw()
     plt.pause(0.001)
- #   plt.show(block=False)

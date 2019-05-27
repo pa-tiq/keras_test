@@ -4,7 +4,7 @@ import numpy
 import random
 
 # split into input (X) and output (Y) variables
-X1 = numpy.arange(0, 10.8, 0.01) # 0 to 10 with 0.01 interval 
+X1 = numpy.arange(0, 10, 0.01) # 0 to 10 with 0.01 interval 
 Y1 = numpy.sin(X1)
 D = []
 for i in range(0,len(X1)):
@@ -63,9 +63,9 @@ Xt = numpy.arange(0.0,12.0,0.4)
 # Fit the model and shows the result
 for i in range(1,50):
 
-    model.fit(X, Y, epochs=40, batch_size=20, verbose=0)
-    # epochs=40: the entire dataset passes the neural network forward and backward 40 times.
-    # batch_size=20: there are 20 training examples present in a single batch (part of the dataset).
+    model.fit(X, Y, epochs=50, batch_size=20, verbose=0)
+    # epochs=50: the entire dataset passes the neural network forward and backward 50 times.
+    # batch_size=20: 20 samples will be passed through the network at once
 
     Yt = numpy.sin(Xt)
     predictions = model.predict(Xt) 

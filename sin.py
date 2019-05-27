@@ -49,6 +49,11 @@ model.add(Dense(1, activation='linear'))
 
 # Compile model
 # SGD = Stochastic gradient descent optimizer
+# Stochastic = uses randomly selected samples to evaluate the gradients
+# Gradient descent = 1st order iterative optimization algorithm for finding the minimum of a function.
+# It tries to find a local minimum taking steps proportional to the negative of the gradient of the function at the current point.
+# Gradient = rate of inclination or declination of a slope (descending in this case)
+# So SGD approximates the gradient descent in a stochastic way.
 model.compile(loss='mean_squared_error', optimizer='SGD', metrics=['mean_squared_error'])
 # mean squared error: average of the squared differences between the predicted and actual values
 
@@ -57,10 +62,13 @@ Xt = numpy.arange(0.0,12.0,0.4)
 
 # Fit the model and shows the result
 for i in range(1,50):
+
     model.fit(X, Y, epochs=40, batch_size=20, verbose=0)
+    # epochs=40: the entire dataset passes the neural network forward and backward 40 times.
+    # batch_size=20: there are 20 training examples present in a single batch (part of the dataset).
 
     Yt = numpy.sin(Xt)
-    predictions = model.predict(Xt)
+    predictions = model.predict(Xt) 
     sai = []
     for pred in predictions:
         sai.append(pred[0])

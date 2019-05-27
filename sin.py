@@ -19,13 +19,21 @@ for i in range(0, len(D)):
     
 # create model
 model = Sequential()
-model.add(Dense(200, input_dim=1, activation='relu')) #rectified linear activation unit 
-#if input > 0 return input; else return 0
+
+# Dense implements the operation: output = activation(dot(input, kernel) + bias) 
+# where activation is the element-wise activation function passed as the activation argument, 
+# kernel is a weights matrix created by the layer, and bias is a bias vector created by the layer 
+# (only applicable if use_bias is True).
+
+model.add(Dense(200, input_dim=1, activation='relu')) 
+# input_dim = 1: 1 input parameter
+# 200: 200 neurons in the first hidden layer
+# relu: rectified linear activation unit (if input > 0 return input; else return 0)
 
 model.add(Dense(16, activation='sigmoid'))
-# S-shape function that exists between 0 and 1. Used for models where we need to predict
+# sigmoid: S-shape function that exists between 0 and 1. Used for models where we need to predict
 # the probability of an output (probabilities exist between 0 and 1)
-# f(x) =    _____L_______  L = vurve's maximum value     x0 = value of sigmoid's midpoint
+# f(x) =    _____L_______  L = curve's maximum value     x0 = value of sigmoid's midpoint
 #          1+e^-(k(x-x0))  k = steepness of the curve
 # a standard logistic function is called sigmoid function (k=1, x0=0, L=1)
 # S(x) = __1___        
@@ -40,6 +48,7 @@ model.add(Dense(1, activation='linear'))
 #output will not be confined between any range.
 
 # Compile model
+# SGD = Stochastic gradient descent optimizer
 model.compile(loss='mean_squared_error', optimizer='SGD', metrics=['mean_squared_error'])
 # mean squared error: average of the squared differences between the predicted and actual values
 

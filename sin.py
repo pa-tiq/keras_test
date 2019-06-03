@@ -43,7 +43,7 @@ model.add(Dense(16, activation='sigmoid'))
 # ‘0’ as x approaches −∞
 # ‘1’ as x approaches +∞
 # The output of sigmoid function when x=0 is 0.5
-# If output is more tan 0.5 , we can classify the outcome as 1 (or YES) and if it is less than 0.5 , we can classify it as 0(or NO) .
+# If output is more than 0.5 , we can classify the outcome as 1 (or YES) and if it is less than 0.5 , we can classify it as 0(or NO) .
 
 model.add(Dense(1, activation='linear'))
 #output will not be confined between any range.

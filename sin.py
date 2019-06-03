@@ -31,6 +31,7 @@ model.add(Dense(200, input_dim=1, activation='relu'))
 # relu: rectified linear activation unit (if input > 0 return input; else return 0)
 
 model.add(Dense(16, activation='sigmoid'))
+# 16: 16 neurons in the second hidden layer
 # sigmoid: S-shape function that exists between 0 and 1. Used for models where we need to predict
 # the probability of an output (probabilities exist between 0 and 1)
 # f(x) =    _____L_______  L = curve's maximum value     x0 = value of sigmoid's midpoint
@@ -54,17 +55,22 @@ model.add(Dense(1, activation='linear'))
 # It tries to find a local minimum taking steps proportional to the negative of the gradient of the function at the current point.
 # Gradient = rate of inclination or declination of a slope (descending in this case)
 # So SGD approximates the gradient descent in a stochastic way.
-model.compile(loss='mean_squared_error', optimizer='SGD', metrics=['mean_squared_error'])
+model.compile(loss='mean_squared_error', optimizer='rmsprop', metrics=['mean_squared_error'])
 # mean squared error: average of the squared differences between the predicted and actual values
 
 import matplotlib.pyplot as plt
-Xt = numpy.arange(0.0,12.0,0.4)
+#Xt = numpy.arange(0.0,12.0,0.4)
+Xt = X1
 
 # Fit the model and shows the result
-for i in range(1,50):
+for i in range(1,100):
 
-    model.fit(X, Y, epochs=50, batch_size=20, verbose=0)
-    # epochs=50: the entire dataset passes the neural network forward and backward 50 times.
+    # example has 1000 samples (iterations*batch_size=1000)
+    # the smaller the batch_size, the more iterations will have to be done in each epoch
+    model.fit(X, Y, epochs=10, batch_size=50, verbose=0)
+    # epochs=10: the entire dataset passes the neural network forward and backward 10 times.
+    # if there are few epochs, every iteration will yield very little training and the function won't have 
+    # an acceptable approximation in time. We would have to increase the number of iterations.
     # batch_size=20: 20 samples will be passed through the network at once
 
     Yt = numpy.sin(Xt)
